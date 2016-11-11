@@ -4,7 +4,8 @@
  * Description: Queue implementation using a circular array
  */
 
-#include "../../../include/Queue.h"
+#include "../../../include/data-structures/queue/Queue.h"
+#include <cstddef>
 
 namespace ds {
 
@@ -41,11 +42,11 @@ namespace ds {
     template<typename T> const T& Queue<T>::dequeue() {
 
         if (size == 0) {
-            return NULL;
+            return nullptr;
         }
 
         T element = elements[head];
-        elements[head] = NULL;
+        elements[head] = nullptr;
         // Removing an element is equivalent to incrementing index of head by one
         // TODO: is this bad design if the queue holds objects, because we are maintaining
         // a reference to the "deleted" object
@@ -61,7 +62,7 @@ namespace ds {
     // TODO: what happens if the value later becomes overriden? What does this return type mean here?
     template<typename T> const T& Queue<T>::peek() const {
         if (size == 0) {
-            return NULL;
+            return nullptr;
         }
         return elements[head];
     }
@@ -88,7 +89,7 @@ namespace ds {
     template<typename T> void Queue<T>::make_empty() {
         // Re-initialize array
         for (int i = 0; i < capacity; i++) {
-            elements[i] = NULL;
+            elements[i] = nullptr;
         }
 
         this->size = 0;

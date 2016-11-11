@@ -7,18 +7,18 @@
 //============================================================================
 
 #include <iostream>
-#include <vector>
 
-//#include "data-structures/queue/Queue.cpp"
-#include "data-structures/SinglyLinkedList.cpp"
-
+#include "/usr/local/Cellar/gtest/gtest/gtest.h"
+#include "data-structures/list/SinglyLinkedList.cpp"
 
 using namespace std;
 using namespace ds;
 
-int main() {
-
-
+int main(int ac, char* av[]) {
+	cout << "!!!Hello World!!!" << endl;
+	testing::InitGoogleTest(&ac, av);
+	  return RUN_ALL_TESTS();
+/*
     SinglyLinkedList<int> * myList = new SinglyLinkedList<int>();
 
     cout << "adding value 1 to list" << endl;
@@ -38,16 +38,9 @@ int main() {
       index = myIterator->end();
     }
 
-
+*/
 
     /*
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
-	int count = 3;
-    int total = count++ * 3;
-	cout << total << endl;
-    cout << RAND_MAX << endl;
-    double value1 = 10.5;
-    cout << INT_MAX << endl;
     Queue<int> * myQueue = new Queue<int>(3);
     myQueue->enqueue(4);
     cout << myQueue->get_size() << endl;
