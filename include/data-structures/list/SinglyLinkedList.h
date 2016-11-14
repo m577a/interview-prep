@@ -1,3 +1,5 @@
+#include <iterator>
+
 namespace ds {
 
 template<typename T> struct Node {
@@ -8,18 +10,53 @@ template<typename T> struct Node {
 
 };
 
-template<typename T> class NodeIterator {
+template<typename T> class FwdNodeIterator
+        : std::iterator<std::input_iterator_tag,
+                        T,
+                        ptrdiff_t,
+                        T*,
+                        T&> {
 
   private:
-   Node<T>* start;
    Node<T>* current;
-   
+
   public:
-  NodeIterator(Node<T>* startNode);
+  FwdNodeIterator(Node<T>* startNode)
+  {
+      current = startNode;
+  }
+
   
-  Node<T>* begin();
+  FwdNodeIterator operator++()
+          {
+             return current->next;
+          }
   
-  Node<T>* end();
+  bool operator==(const FwdNodeIterator<T>& otherIterator) const
+       {
+           return current == otherIterator.getConstPtr();
+       }
+
+  bool operator!=(const FwdNodeIterator<T>& otherIterator) const
+       {
+           return current != otherIterator.getConstPtr();
+       }
+
+  Node<T>& operator*()
+       {
+           return *current;
+       }
+
+  Node<T>* operator->()
+       {
+           return current;
+       }
+
+  const Node<T>* getConstPtr()const
+  {
+//      return std::const_cast<Node <T>>(current);
+      return current;
+  }
 
 };
 
@@ -34,13 +71,22 @@ template<typename T> class SinglyLinkedList {
    
    ~SinglyLinkedList();
    
-   NodeIterator<T>* getIterator();
+   FwdNodeIterator<T>* getIterator();
    
    void append(const T& element);
    
    bool remove(const T& element);
    
    bool contains(const T& element);
+
+   public:
+       typedef FwdNodeIterator<T>    iterator;
+
+       iterator begin() {return iterator(head);}
+       iterator end() {return iterator(nullptr);}
+
+       friend class FwdNodeIterator<T>;
+
 };
 
 }

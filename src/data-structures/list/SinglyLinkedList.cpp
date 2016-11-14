@@ -6,9 +6,7 @@
  */
 
 #include <stddef.h>
-//#include <stdbool.h>
-//#include <stdint.h>
-//#include <stdexcept>
+#include <cstddef>
 
 //using namespace std;
 //using std;
@@ -19,28 +17,12 @@
 namespace ds {
 
 
-  template<typename T> NodeIterator<T>::NodeIterator(Node<T>* startNode) {
-      start = startNode;
-      current = startNode;
-  }
-
-  template<typename T> Node<T>* NodeIterator<T>::begin() {
-      return start;
-  }
-
-  template<typename T> Node<T>* NodeIterator<T>::end() {
-      return current->next;
-  }
-
-
 
 
 
    template<typename T> SinglyLinkedList<T>::SinglyLinkedList(){
-//       head = std::nullptr_t();
-//       tail = std::nullptr_t();
-       head = NULL;
-       tail = NULL;
+       head = nullptr;
+       tail = nullptr;
    }
 
    template<typename T> SinglyLinkedList<T>::~SinglyLinkedList() {}
@@ -60,8 +42,8 @@ namespace ds {
        }
    }
 
-   template<typename T> NodeIterator<T>* SinglyLinkedList<T>::getIterator() {
-      return new NodeIterator<T>(head);
+   template<typename T> FwdNodeIterator<T>* SinglyLinkedList<T>::getIterator() {
+      return new FwdNodeIterator<T>(head);
    }
 
    template<typename T> bool SinglyLinkedList<T>::remove(const T& element) {}
@@ -70,7 +52,7 @@ namespace ds {
 
        Node<T>* node = head;
 
-       while (node != NULL) {
+       while (node != nullptr) {
            if (node->value == element) {
                return true;
            } else {

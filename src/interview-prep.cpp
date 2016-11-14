@@ -18,27 +18,6 @@ int main(int ac, char* av[]) {
 	cout << "!!!Hello World!!!" << endl;
 	testing::InitGoogleTest(&ac, av);
 	  return RUN_ALL_TESTS();
-/*
-    SinglyLinkedList<int> * myList = new SinglyLinkedList<int>();
-
-    cout << "adding value 1 to list" << endl;
-    myList->append(1);
-
-    if ( myList->contains(1) ) {
-       cout << "found value 1" << endl;
-    } else {
-       cout << "could not find value 1"  << endl;
-    }
-
-    NodeIterator<int>* myIterator = myList->getIterator();
-    Node<int>* index = myIterator->begin();
-
-    while (index != NULL) {
-       cout << "iterator got value = " << index->value << endl;
-      index = myIterator->end();
-    }
-
-*/
 
     /*
     Queue<int> * myQueue = new Queue<int>(3);
