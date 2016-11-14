@@ -14,7 +14,7 @@
 //using std;
 
 
-#include "../../include/SinglyLinkedList.h"
+#include "../../../include/data-structures/list/SinglyLinkedList.h"
 
 namespace ds {
 
