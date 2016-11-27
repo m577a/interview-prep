@@ -29,7 +29,8 @@ template<typename T> class FwdNodeIterator
   
   FwdNodeIterator operator++()
           {
-             return current->next;
+             current = current->next;
+             return current;
           }
   
   bool operator==(const FwdNodeIterator<T>& otherIterator) const
@@ -42,14 +43,14 @@ template<typename T> class FwdNodeIterator
            return current != otherIterator.getConstPtr();
        }
 
-  Node<T>& operator*()
+  T& operator*()
        {
-           return *current;
+           return current->value;
        }
 
-  Node<T>* operator->()
+  T* operator->()
        {
-           return current;
+           return &(current->value);
        }
 
   const Node<T>* getConstPtr()const

@@ -14,6 +14,10 @@ TEST(ListTests, ListCreation) {
 
         cout << "adding value 1 to list" << endl;
         myList->append(1);
+        cout << "adding value 2 to list" << endl;
+        myList->append(2);
+        cout << "adding value 3 to list" << endl;
+        myList->append(3);
 
         // FATAL if fails
         // ASSERT_TRUE(myList->contains(1));
@@ -27,13 +31,20 @@ TEST(ListTests, ListCreation) {
 //           cout << "could not find value 1"  << endl;
 //        }
 
-//        typedef MyIter FwdNodeIterator<int>;
-        FwdNodeIterator<int>* myIterator = myList->getIterator();
-        FwdNodeIterator<int> index = myList->begin();
+        typedef FwdNodeIterator<int> MyIter;
 
-        while (index != myList->end()) {
-           cout << "iterator got value = " << index->value << endl;
+        for (FwdNodeIterator<int>* myIterator = myList->getIterator(); *myIterator != myList->end(); ++(*myIterator)) {
+            cout << "iterator style #1 got value = " << myIterator->getConstPtr()->value << endl;
         }
 
+        for (MyIter myIterator = myList->begin(); myIterator != myList->end(); ++myIterator) {
+            cout << "iterator style #2 got value = " << *myIterator << endl;
+        }
+
+        for (int myIterator : *myList) {
+            cout << "iterator style #3 got value = " << myIterator << endl;
+        }
+
+        cout << "done" << endl;
 
 }
