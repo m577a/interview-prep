@@ -1,3 +1,7 @@
+
+#ifndef SINGLY_LINKED_LIST_H_
+#define SINGLY_LINKED_LIST_H_
+
 #include <iterator>
 
 namespace ds {
@@ -7,6 +11,7 @@ template<typename T> struct Node {
   public:
    T value;
    Node* next; 
+   Node* previous;
 
 };
 
@@ -63,7 +68,7 @@ template<typename T> class FwdNodeIterator
 
 template<typename T> class SinglyLinkedList {
 
-   private:
+   protected:
     Node<T>* head;
     Node<T>* tail;
 
@@ -91,3 +96,5 @@ template<typename T> class SinglyLinkedList {
 };
 
 }
+
+#endif   /* SINGLY_LINKED_LIST_H_ */
