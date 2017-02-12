@@ -26,20 +26,44 @@ template<typename T> class BwdNodeIterator
       current = startNode;
   }
 
+
+  BwdNodeIterator(const BwdNodeIterator& other)
+  {
+      current = other.current;
+  }
+
   
-  BwdNodeIterator operator--()
+
+  BwdNodeIterator& operator++()
           {
              current = current->next;
-             return current;
+             return *this;
           }
 
 
-  BwdNodeIterator operator++()
+  BwdNodeIterator& operator--()
           {
              current = current->previous;
-             return current;
+             return *this;
+          }
+
+
+  BwdNodeIterator operator++(int)
+          {
+             BwdNodeIterator temp = BwdNodeIterator(*this);
+             current = current->next;
+             return temp;
+          }
+
+
+  BwdNodeIterator operator--(int)
+          {
+             BwdNodeIterator temp = BwdNodeIterator(*this);
+             current = current->previous;
+             return temp;
           }
   
+
   bool operator==(const BwdNodeIterator<T>& otherIterator) const
        {
            return current == otherIterator.getConstPtr();
@@ -86,6 +110,9 @@ template<typename T> class DoublyLinkedList : public SinglyLinkedList<T> {
 
    public:
        typedef BwdNodeIterator<T>    BwdIterator;
+
+       BwdIterator begin() {return BwdIterator(DoublyLinkedList<T>::head);}
+       BwdIterator end() {return nullptr;}
 
        BwdIterator rbegin() {return BwdIterator(SinglyLinkedList<T>::tail);}
        BwdIterator rend() {return BwdIterator(nullptr);}

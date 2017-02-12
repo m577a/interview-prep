@@ -76,11 +76,11 @@ TEST(ListTests, ListCreation) {
 
         typedef BwdNodeIterator<int> MyBwdIter;
 
-        for (BwdNodeIterator<int>* myIterator = myDoubleList->getIterator(); *myIterator != myDoubleList->rend(); ++(*myIterator)) {
+        for (BwdNodeIterator<int>* myIterator = myDoubleList->getIterator(); *myIterator != myDoubleList->rend(); --(*myIterator)) {
             cout << "reverse iterator style #1 got value = " << myIterator->getConstPtr()->value << endl;
         }
 
-        for (MyBwdIter myIterator = myDoubleList->rbegin(); myIterator != myDoubleList->rend(); ++myIterator) {
+        for (MyBwdIter myIterator = myDoubleList->rbegin(); myIterator != myDoubleList->rend(); --myIterator) {
             cout << "reverse iterator style #2 got value = " << *myIterator << endl;
         }
 
