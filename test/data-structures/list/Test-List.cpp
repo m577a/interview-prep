@@ -75,12 +75,14 @@ TEST(ListTests, ListCreation) {
 //        }
 
         typedef BwdNodeIterator<int> MyBwdIter;
+        typedef DoublyLinkedList<int>::reverse_iterator MyRevIter;
 
-        for (BwdNodeIterator<int>* myIterator = myDoubleList->getIterator(); *myIterator != myDoubleList->rend(); ++(*myIterator)) {
-            cout << "reverse iterator style #1 got value = " << myIterator->getConstPtr()->value << endl;
-        }
+        // Cannot use this style of loop with a reverse iterator
+//        for (BwdNodeIterator<int>* myIterator = myDoubleList->getIterator(); *myIterator != myDoubleList->rend(); ++(*myIterator)) {
+//            cout << "reverse iterator style #1 got value = " << myIterator->getConstPtr()->value << endl;
+//        }
 
-        for (MyBwdIter myIterator = myDoubleList->rbegin(); myIterator != myDoubleList->rend(); ++myIterator) {
+        for (MyRevIter myIterator = myDoubleList->rbegin(); myIterator != myDoubleList->rend(); ++myIterator) {
             cout << "reverse iterator style #2 got value = " << *myIterator << endl;
         }
 
