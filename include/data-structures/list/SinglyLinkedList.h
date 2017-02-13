@@ -31,12 +31,28 @@ template<typename T> class FwdNodeIterator
       current = startNode;
   }
 
-  
-  FwdNodeIterator operator++()
-          {
-             current = current->next;
-             return current;
-          }
+  FwdNodeIterator(const FwdNodeIterator& other)
+   {
+       current = other.current;
+   }
+
+
+
+   FwdNodeIterator& operator++()
+   {
+      current = current->next;
+      return *this;
+   }
+
+
+   FwdNodeIterator operator++(int)
+   {
+      FwdNodeIterator temp = FwdNodeIterator(*this);
+      current = current->next;
+      return temp;
+   }
+
+
   
   bool operator==(const FwdNodeIterator<T>& otherIterator) const
        {

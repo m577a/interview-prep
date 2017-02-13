@@ -5,6 +5,8 @@
 #include "../../../src/data-structures/list/SinglyLinkedList.cpp"
 #include "../../../src/data-structures/list/DoublyLinkedList.cpp"
 
+#include <algorithm>
+
 using namespace std;
 using namespace ds;
 
@@ -90,6 +92,14 @@ TEST(ListTests, ListCreation) {
         for (int myIterator : *myDoubleList) {
             cout << "reverse iterator style #3 got value = " << myIterator << endl;
         }
+
+        //-------------
+
+        cout << "Algorithm tests:" << endl;
+
+        // TODO: fix compilation errors for the algorithm instantiation.
+//        cout << "Minimum : " << *min_element(myList->begin(), myList->end()) << endl;
+//        cout << "Minimum : " << *min_element(myDoubleList->begin(), myDoubleList->end()) << endl;
 
         //-------------
 

@@ -6,6 +6,8 @@
 
 #include "SinglyLinkedList.h"
 
+using namespace std;
+
 namespace ds {
 
 
