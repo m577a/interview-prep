@@ -10,12 +10,18 @@
 
 #include "/usr/local/Cellar/gtest/gtest/gtest.h"
 #include "data-structures/list/SinglyLinkedList.cpp"
+#include "../include/algorithms/WordCounter.h"
 
 using namespace std;
 using namespace ds;
 
 int main(int ac, char* av[]) {
 	cout << "!!!Hello World!!!" << endl;
+
+	WordCounter testWordCount = WordCounter();
+
+	testWordCount.count();
+
 	testing::InitGoogleTest(&ac, av);
 	  return RUN_ALL_TESTS();
 
