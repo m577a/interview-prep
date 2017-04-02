@@ -5,14 +5,16 @@
  *      Author: milsted
  */
 
-#include "../list/SinglyLinkedList.cpp"
 #include "../../../include/data-structures/hashmap/HashMap.h"
+
+#include "../pair/SimplePair.cpp"
+#include "../list/SinglyLinkedList.cpp"
 
 namespace ds {
     template<typename Key, typename Value, typename HashFunction>
     HashMap<Key, Value, HashFunction>::HashMap(int size) {
         hashMapSize = size;
-        keyValueMap = new vector<SinglyLinkedList<pair<Key, Value>>>(hashMapSize);
+        keyValueMap = new vector<SinglyLinkedList<SimplePair<Key, Value>>>(hashMapSize);
     }
 
     template<typename Key, typename Value, typename HashFunction>
@@ -24,7 +26,7 @@ namespace ds {
     void HashMap<Key, Value, HashFunction>::add(Key key, Value value) {
 
         int mapIndex = hashFunction(key, hashMapSize);
-        SinglyLinkedList<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
+        SinglyLinkedList<SimplePair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
 
         // search list for existing matching key
 
@@ -47,7 +49,8 @@ namespace ds {
 
         // key not found, so add the key value pair into the list
 //        keyValuePairList.emplace_back(std::pair<Key,Value>(key,value));
-        keyValuePairList.append(std::pair<Key,Value>(key,value));
+//        keyValuePairList.append(std::pair<Key,Value>(key,value));
+        keyValuePairList.append(SimplePair<Key,Value>(key,value));
 
         // put the updated keyValue list back into the map
         (*keyValueMap)[mapIndex] = keyValuePairList;
@@ -56,7 +59,8 @@ namespace ds {
     template<typename Key, typename Value, typename HashFunction>
     Value* HashMap<Key, Value, HashFunction>::get(Key key) {
         int mapIndex = hashFunction(key, hashMapSize);
-        SinglyLinkedList<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
+//        SinglyLinkedList<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
+        SinglyLinkedList<SimplePair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
 
         // search list for matching key
 //        for (int pairIndex = 0; pairIndex < keyValuePairList.size(); ++pairIndex) {
@@ -90,13 +94,15 @@ namespace ds {
         // loop through all buckets in the hash map
         for (int mapIndex = 0; mapIndex < hashMapSize; ++mapIndex) {
 
-            SinglyLinkedList<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
+//            SinglyLinkedList<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
+            SinglyLinkedList<SimplePair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
 
             // loop through all keyValue pairs in the bucket
             for (auto iter = keyValuePairList.begin(); iter != keyValuePairList.end(); ++iter ) {
 
                 // add the keyValue pair into the combined list
-                combinedVector->emplace_back(*iter);
+//                combinedVector->emplace_back(*iter);
+                combinedVector->emplace_back(std::pair<Key,Value>(iter->first, iter->second));  // construct a std::pair from the SimplePair
             }
 
         }

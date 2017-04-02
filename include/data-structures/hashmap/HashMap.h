@@ -4,6 +4,8 @@
 #include <vector>
 //  #include <list>
 
+#include "../pair/SimplePair.h"
+
 #include "../list/SinglyLinkedList.h"
 
 using namespace std;
@@ -11,7 +13,7 @@ using namespace std;
 namespace ds {
 	template <typename Key, typename Value, typename HashFunction> class HashMap {
 		private:
-			vector<SinglyLinkedList<pair<Key,Value>>>* keyValueMap;
+			vector<SinglyLinkedList<SimplePair<Key,Value>>>* keyValueMap;
             int hashMapSize = 0;
             HashFunction hashFunction;
             
