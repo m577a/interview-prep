@@ -13,12 +13,33 @@
 
 #include "../../include/algorithms/WordCounter.h"
 
+#include "../data-structures/hashmap/HashMap.cpp"
+
 //#include "/usr/local/Cellar/gtest/gtest/gtest.h"
 
 
 using namespace std;
 
 namespace ds {
+
+struct hashFunc{
+
+    int operator()(const string& input, int hashSize) const {
+
+    int hashValue = 0;
+
+    // loop over the characters in the string
+    for (int index = 0; index < input.length(); ++index) {
+        char character = input[index];
+
+        hashValue = (hashValue + (uint)character);
+    }
+
+    hashValue = hashValue % hashSize;
+
+    return hashValue;
+    }
+};
 
 
 // Comparison function used for sorting.
@@ -33,30 +54,40 @@ void WordCounter::count() {
 
     vector<string> wordList = {"cat", "dog", "mouse", "dog", "cat", "horse", "dog"};
 
-    unordered_map<string, int> wordCounts = unordered_map<string, int>{};
+    ds::HashMap<string, int, hashFunc> wordCounts = ds::HashMap<string, int, hashFunc>(16);
 
     // -------load the data into an unordered_map (hashmap)
     for (string word : wordList) {
-        auto iter = wordCounts.find(word);
 
-        if (iter == wordCounts.end()) {
+        //auto iter = wordCounts.find(word);
+        int* currentCountPtr = wordCounts.get(word);
+
+        if (currentCountPtr == nullptr) {
             // found first occurrence of a new word
-            wordCounts.emplace(std::pair<string, int>(word, 1));
+            wordCounts.add(word, 1);
             cout << word << endl;
         } else {
             // found an additional occurrence of a previously known word
             // increment the count
-            int currentCount = iter->second;
-            currentCount++;
-            iter->second = currentCount;
-            cout << currentCount << " occurrences of word = " << word << endl;
+            (*currentCountPtr)++;
+            wordCounts.add(word, *currentCountPtr);
+            cout << *currentCountPtr << " occurrences of word = " << word << endl;
         }
     }
 
     // -------------------- output unsorted summary stats --------------
     cout << "Summary stats:" << endl;
 
-    for (auto wordStat : wordCounts) {
+    // copy the data from the unordered_map into a vector, then sort the vector
+//    vector<std::pair<string, int>> sortedWordCounts = vector<std::pair<string, int>>{};
+    vector<std::pair<string, int>>* sortedWordCounts = nullptr;
+
+//    for (auto wordStat : wordCounts) {
+//        sortedWordCounts.emplace_back(wordStat);
+//    }
+    sortedWordCounts = wordCounts.getVector();
+
+    for (auto wordStat : *sortedWordCounts) {
         cout << wordStat.second << " occurrences of word = " << wordStat.first << endl;
     }
 
@@ -69,18 +100,11 @@ void WordCounter::count() {
     //      cout << wordStat.second << " occurrences of word = " << wordStat.first << endl;
     // }
 
-    // copy the data from the unordered_map into a vector, then sort the vector
-    vector<std::pair<string, int>> sortedWordCounts = vector<std::pair<string, int>>{};
-
-    for (auto wordStat : wordCounts) {
-        sortedWordCounts.emplace_back(wordStat);
-    }
-
     // now sort the vector
-    sort(sortedWordCounts.begin(), sortedWordCounts.end(), moreWords);
+    sort(sortedWordCounts->begin(), sortedWordCounts->end(), moreWords);
 
     // ------------------- output the sorted results -------------------
-    for (auto wordStat : sortedWordCounts) {
+    for (auto wordStat : *sortedWordCounts) {
         cout << wordStat.second << " occurences of word = " << wordStat.first << endl;
     }
 
