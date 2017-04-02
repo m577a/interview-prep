@@ -5,13 +5,14 @@
  *      Author: milsted
  */
 
+#include "../list/SinglyLinkedList.cpp"
 #include "../../../include/data-structures/hashmap/HashMap.h"
 
 namespace ds {
     template<typename Key, typename Value, typename HashFunction>
     HashMap<Key, Value, HashFunction>::HashMap(int size) {
         hashMapSize = size;
-        keyValueMap = new vector<list<pair<Key, Value>>>(hashMapSize);
+        keyValueMap = new vector<SinglyLinkedList<pair<Key, Value>>>(hashMapSize);
     }
 
     template<typename Key, typename Value, typename HashFunction>
@@ -23,7 +24,7 @@ namespace ds {
     void HashMap<Key, Value, HashFunction>::add(Key key, Value value) {
 
         int mapIndex = hashFunction(key, hashMapSize);
-        list<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
+        SinglyLinkedList<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
 
         // search list for existing matching key
 
@@ -45,7 +46,8 @@ namespace ds {
         }
 
         // key not found, so add the key value pair into the list
-        keyValuePairList.emplace_back(std::pair<Key,Value>(key,value));
+//        keyValuePairList.emplace_back(std::pair<Key,Value>(key,value));
+        keyValuePairList.append(std::pair<Key,Value>(key,value));
 
         // put the updated keyValue list back into the map
         (*keyValueMap)[mapIndex] = keyValuePairList;
@@ -54,7 +56,7 @@ namespace ds {
     template<typename Key, typename Value, typename HashFunction>
     Value* HashMap<Key, Value, HashFunction>::get(Key key) {
         int mapIndex = hashFunction(key, hashMapSize);
-        list<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
+        SinglyLinkedList<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
 
         // search list for matching key
 //        for (int pairIndex = 0; pairIndex < keyValuePairList.size(); ++pairIndex) {
@@ -88,7 +90,7 @@ namespace ds {
         // loop through all buckets in the hash map
         for (int mapIndex = 0; mapIndex < hashMapSize; ++mapIndex) {
 
-            list<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
+            SinglyLinkedList<pair<Key,Value>> keyValuePairList = (*keyValueMap)[mapIndex];
 
             // loop through all keyValue pairs in the bucket
             for (auto iter = keyValuePairList.begin(); iter != keyValuePairList.end(); ++iter ) {
@@ -103,5 +105,5 @@ namespace ds {
     }
 
 
-} /* namespace storage */
+} /* namespace ds */
 

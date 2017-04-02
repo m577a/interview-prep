@@ -2,15 +2,16 @@
 #define HASHMAP_H_
 
 #include <vector>
-#include <list>
+//  #include <list>
 
+#include "../list/SinglyLinkedList.h"
 
 using namespace std;
 
 namespace ds {
 	template <typename Key, typename Value, typename HashFunction> class HashMap {
 		private:
-			vector<list<pair<Key,Value>>>* keyValueMap;
+			vector<SinglyLinkedList<pair<Key,Value>>>* keyValueMap;
             int hashMapSize = 0;
             HashFunction hashFunction;
             
